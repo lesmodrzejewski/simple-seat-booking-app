@@ -73,12 +73,13 @@ body {
   border-top-right-radius: 50%;
 }
 
-.selected,
-.occupied {
+.key-seat.selected,
+.key-seat.occupied {
   margin-left: 2rem;
 }
 
-.selected {
+.key-seat.selected,
+.seat.selected {
   background-color: gold;
 }
 
@@ -113,9 +114,8 @@ body {
   margin: 0.25rem;
 }
 
-.seat:hover {
+.seat:not(.occupied):not(.selected):hover {
   transform: scale(1.25, 1.25);
-  background-color: gold;
 }
 
 .row {
@@ -131,7 +131,6 @@ body {
 } */
 
 #total {
-  margin-top: 3rem;
   /* border: 2px dotted yellow; */
 }
 
@@ -140,7 +139,7 @@ body {
   text-align: center;
 }
 
-.seats-number,
+.count,
 .price {
   color: gold;
 }
