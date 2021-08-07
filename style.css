@@ -135,7 +135,7 @@ body {
   text-align: center;
 }
 
-#count,
-#price {
+#seats-count,
+#total-price {
   color: gold;
 }
