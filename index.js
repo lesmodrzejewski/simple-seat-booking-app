@@ -23,7 +23,7 @@ function updateSeatsAndPrice() {
 
   const movieP = JSON.parse(localStorage.getItem('moviePrice'));
 
-  const calculatedPrice = +moviePrice * selectedSeatsIndex.length;
+  const calculatedPrice = +movieP * selectedSeatsIndex.length;
 
   seatsCount.innerText = selectedSeatsIndex.length;
   totalPrice.innerText = calculatedPrice;
