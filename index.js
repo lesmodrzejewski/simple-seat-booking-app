@@ -8,6 +8,9 @@ const movie = document.getElementById('movie');
 
 showSelected();
 
+// updates number of seats chosen and total price on the screen
+// and stores selected seats index in the localStorage
+
 function updateSeatsAndPrice() {
   const selectedSeats = document.querySelectorAll('.seat.selected');
 
@@ -20,13 +23,15 @@ function updateSeatsAndPrice() {
     JSON.stringify(selectedSeatsIndex)
   );
 
-  const movieP = JSON.parse(localStorage.getItem('moviePrice'));
+  const moviePrice = JSON.parse(localStorage.getItem('moviePrice'));
 
-  const calculatedPrice = +movieP * selectedSeatsIndex.length;
+  const calculatedPrice = +moviePrice * selectedSeatsIndex.length;
 
   seatsCount.innerText = selectedSeatsIndex.length;
   totalPrice.innerText = calculatedPrice;
 }
+
+// shows selected seats after reloading
 
 function showSelected() {
   const selectedSeatsIndex = JSON.parse(
@@ -42,10 +47,13 @@ function showSelected() {
   });
 }
 
+// stores movie title and movie price in localStorage
 function storeMovieAndPrice(movieTitle, moviePrice) {
   localStorage.setItem('movieTitle', JSON.stringify(movieTitle));
   localStorage.setItem('moviePrice', JSON.stringify(moviePrice));
 }
+
+// select ot unselect clicking on seat + update
 
 container.addEventListener('click', e => {
   if (
@@ -57,6 +65,8 @@ container.addEventListener('click', e => {
 
   updateSeatsAndPrice();
 });
+
+// store in localStorage movie title and movie price when changed + update
 
 movie.addEventListener('change', e => {
   storeMovieAndPrice(e.target.selectedItem, e.target.value);
