@@ -1,48 +1,51 @@
 /** @format */
 
-const container = document.getElementById('container');
 const seats = document.querySelectorAll('.row .seat:not(.occupied)');
-const count = document.getElementsByClassName('count');
-const price = document.getElementsByClassName('price');
-const movieList = document.getElementById('movie-list');
+const container = document.getElementById('container');
+const seatsCount = document.getElementById('seatsCount');
+const totalPrice = document.getElementById('totalPrice');
+const movie = document.getElementById('movie');
 
-populate();
+showSelected();
 
-let ticketPrice = parseInt(movieList.value);
-
-function updateCountAndPrice() {
-  const selectedSeats = document.querySelectorAll('.row .seat.selected');
-  console.log(seats);
-  console.log(selectedSeats);
+function updateSeatsAndPrice() {
+  const selectedSeats = document.querySelectorAll('.seat.selected');
+  // console.log(selectedSeats);
 
   const selectedSeatsIndex = [...selectedSeats].map(seat =>
     [...seats].indexOf(seat)
   );
 
-  console.log(selectedSeatsIndex);
-
   localStorage.setItem(
     'selectedSeatsIndex',
     JSON.stringify(selectedSeatsIndex)
   );
-  const selectedSeatsCount = selectedSeatsIndex.length;
 
-  count.innerText = selectedSeatsCount;
-  price.innerText = selectedSeatsCount * ticketPrice;
+  const movieP = JSON.parse(localStorage.getItem('moviePrice'));
+
+  const calculatedPrice = +moviePrice * selectedSeatsIndex.length;
+
+  seatsCount.innerText = selectedSeatsIndex.length;
+  totalPrice.innerText = calculatedPrice;
 }
 
-function populate() {
+function showSelected() {
   const selectedSeatsIndex = JSON.parse(
     localStorage.getItem('selectedSeatsIndex')
   );
 
-  if (selectedSeatsIndex !== null && selectedSeatsIndex.length > 0) {
-    seats.forEach((seat, index) => {
-      if (selectedSeatsIndex.includes(index) === true) {
+  [...seats].map((seat, index) => {
+    if (selectedSeatsIndex !== null && selectedSeatsIndex.length > 0) {
+      if (selectedSeatsIndex.includes(index)) {
         seat.classList.add('selected');
       }
-    });
-  }
+    }
+  });
+}
+
+function storeMovieAndPrice(movieTitle, moviePrice) {
+  localStorage.setItem('movieTitle', JSON.stringify(movieTitle));
+  localStorage.setItem('moviePrice', JSON.stringify(moviePrice));
 }
 
 container.addEventListener('click', e => {
@@ -50,11 +53,15 @@ container.addEventListener('click', e => {
     e.target.classList.contains('seat') &&
     !e.target.classList.contains('occupied')
   ) {
-    console.log(e.target);
     e.target.classList.toggle('selected');
   }
 
-  updateCountAndPrice();
+  updateSeatsAndPrice();
 });
 
-updateCountAndPrice();
+movie.addEventListener('change', e => {
+  storeMovieAndPrice(e.target.selectedItem, e.target.value);
+  updateSeatsAndPrice();
+});
+
+updateSeatsAndPrice();

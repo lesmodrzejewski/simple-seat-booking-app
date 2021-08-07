@@ -130,16 +130,12 @@ body {
   margin-right: 3rem;
 } */
 
-#total {
-  /* border: 2px dotted yellow; */
-}
-
 #total p {
   font-size: 1.25rem;
   text-align: center;
 }
 
-.count,
-.price {
+#count,
+#price {
   color: gold;
 }
