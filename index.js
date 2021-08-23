@@ -5,6 +5,7 @@ const container = document.getElementById('container');
 const seatsCount = document.getElementById('seats-count');
 const totalPrice = document.getElementById('total-price');
 const movie = document.getElementById('movie');
+const resetButton = document.getElementById('reset-button');
 
 showSelected();
 
@@ -71,6 +72,20 @@ container.addEventListener('click', e => {
 movie.addEventListener('change', e => {
   storeMovieAndPrice(e.target.selectedItem, e.target.value);
   updateSeatsAndPrice();
+});
+
+resetButton.addEventListener('click', e => {
+  const selectedSeatsIndex = JSON.parse(
+    localStorage.getItem('selectedSeatsIndex')
+  );
+
+  [...seats].map((seat, index) => {
+    if (selectedSeatsIndex !== null && selectedSeatsIndex.length > 0) {
+      if (selectedSeatsIndex.includes(index)) {
+        seat.classList.remove('selected');
+      }
+    }
+  });
 });
 
 updateSeatsAndPrice();
