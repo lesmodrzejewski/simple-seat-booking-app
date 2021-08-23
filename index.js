@@ -74,6 +74,8 @@ movie.addEventListener('change', e => {
   updateSeatsAndPrice();
 });
 
+// Reset button
+
 resetButton.addEventListener('click', e => {
   const selectedSeatsIndex = JSON.parse(
     localStorage.getItem('selectedSeatsIndex')
@@ -86,6 +88,8 @@ resetButton.addEventListener('click', e => {
       }
     }
   });
+
+  console.log(movie);
 });
 
 updateSeatsAndPrice();
